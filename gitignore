@@ -1,0 +1,136 @@
+# ============================================================
+# .gitignore — Clinic Monitoring Microservices
+# Spring Boot + Maven + Docker + IntelliJ/Eclipse/VS Code
+# ============================================================
+
+
+# ─── Maven Build Output ─────────────────────────────────────
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Maven wrapper
+.mvn/wrapper/maven-wrapper.properties
+*.versionsBackup
+
+
+# ─── Compiled Java ──────────────────────────────────────────
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+
+# ─── Spring Boot ────────────────────────────────────────────
+spring-shell.log
+*.log
+logs/
+log/
+
+
+# ─── IntelliJ IDEA ──────────────────────────────────────────
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+.idea_modules/
+
+
+# ─── Eclipse / STS ──────────────────────────────────────────
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+
+# ─── VS Code ────────────────────────────────────────────────
+.vscode/
+*.code-workspace
+
+
+# ─── NetBeans ───────────────────────────────────────────────
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+
+# ─── OS Files ───────────────────────────────────────────────
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+
+
+# ─── Docker ─────────────────────────────────────────────────
+# Don't ignore Dockerfiles — they belong in source control.
+# Only ignore generated/runtime Docker artifacts.
+docker-compose.override.yml
+.docker/
+
+
+# ─── Environment & Secrets ──────────────────────────────────
+.env
+.env.*
+*.env
+!.env.example
+secrets/
+*.pem
+*.key
+*.p12
+*.jks
+
+
+# ─── Database ───────────────────────────────────────────────
+*.sql.bak
+*.db
+*.sqlite
+*.h2.db
+*.mv.db
+*.trace.db
+
+
+# ─── Monitoring / Grafana / Prometheus ──────────────────────
+grafana/data/
+prometheus/data/
+prometheus-data/
+grafana-data/
+
+
+# ─── Miscellaneous ──────────────────────────────────────────
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+*.orig
+*.rej
+.cache/
