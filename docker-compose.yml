@@ -1,5 +1,3 @@
-version: '3.8'
-
 # =============================================================
 # Clinic Management Microservices - Full Stack
 # Services: MySQL | Eureka | Gateway | Appointment | Doctor | Patient | Prometheus | Grafana
