@@ -71,8 +71,8 @@ public class Insurance {
 
 	@Override
 	public String toString() {
-		return "Insurance [insuranceId=" + insuranceId + ", packageName=" + packageName + ", type=" + type + ", amount="
-				+ amount + "]";
+		return "Insurance [insuranceId=" + insuranceId + ", packageName=" + packageName + ", type=" + type
+				+ ", amount=" + amount + "]";
 	}
 
 }

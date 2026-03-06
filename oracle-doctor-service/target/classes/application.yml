@@ -33,8 +33,8 @@ management:
       exposure:
         include: health, info, prometheus, metrics, env, loggers
   endpoint:
-		prometheus: 
-		  enabled: true
+    prometheus:
+      enabled: true
     health:
       show-details: always
   metrics:

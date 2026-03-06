@@ -1,8 +1,3 @@
-# =============================================================
-# Clinic Management Microservices - Full Stack
-# Services: MySQL | Eureka | Gateway | Appointment | Doctor | Patient | Prometheus | Grafana
-# =============================================================
-
 networks:
   clinic-network:
     driver: bridge
@@ -14,12 +9,6 @@ volumes:
 
 services:
 
-  # -----------------------------------------------------------
-  # MySQL Database
-  # Each microservice uses its own schema (database) within this
-  # single MySQL instance. Schemas are auto-created by Spring JPA
-  # on first startup via createDatabaseIfNotExist=true
-  # -----------------------------------------------------------
   mysql-db:
     image: mysql:8.0
     container_name: clinic-mysql
@@ -28,12 +17,11 @@ services:
       MYSQL_ROOT_PASSWORD: root_pass
       MYSQL_USER: clinic_user
       MYSQL_PASSWORD: clinic_pass
-      # Root creates the user and grants permissions to all schemas
     ports:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
-      - ./mysql-init:/docker-entrypoint-initdb.d   # runs init SQL on first start
+      - ./mysql-init:/docker-entrypoint-initdb.d
     networks:
       - clinic-network
     healthcheck:
@@ -43,9 +31,6 @@ services:
       retries: 10
       start_period: 30s
 
-  # -----------------------------------------------------------
-  # Eureka Discovery Server (must start first)
-  # -----------------------------------------------------------
   eureka-server:
     build:
       context: ./oracle-clinic-eureka-server
@@ -63,9 +48,6 @@ services:
       retries: 5
       start_period: 40s
 
-  # -----------------------------------------------------------
-  # API Gateway
-  # -----------------------------------------------------------
   api-gateway:
     build:
       context: ./oracle-clinic-api-gateway
@@ -88,9 +70,6 @@ services:
       retries: 5
       start_period: 40s
 
-  # -----------------------------------------------------------
-  # Appointment Microservice
-  # -----------------------------------------------------------
   appointment-service:
     build:
       context: ./oracle-appointment-service
@@ -118,9 +97,6 @@ services:
       retries: 5
       start_period: 60s
 
-  # -----------------------------------------------------------
-  # Doctor Microservice
-  # -----------------------------------------------------------
   doctor-service:
     build:
       context: ./oracle-doctor-service
@@ -148,9 +124,6 @@ services:
       retries: 5
       start_period: 60s
 
-  # -----------------------------------------------------------
-  # Patient Microservice
-  # -----------------------------------------------------------
   patient-service:
     build:
       context: ./oracle-patient-service
@@ -178,10 +151,6 @@ services:
       retries: 5
       start_period: 60s
 
-  # -----------------------------------------------------------
-  # Prometheus - Metrics Collector
-  # Scrapes /actuator/prometheus from all 5 Spring Boot services
-  # -----------------------------------------------------------
   prometheus:
     image: prom/prometheus:latest
     container_name: clinic-prometheus
@@ -195,7 +164,7 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
       - '--storage.tsdb.retention.time=15d'
-      - '--web.enable-lifecycle'        # allows hot-reload via POST /-/reload
+      - '--web.enable-lifecycle'
     networks:
       - clinic-network
     depends_on:
@@ -205,10 +174,6 @@ services:
       - doctor-service
       - patient-service
 
-  # -----------------------------------------------------------
-  # Grafana - Metrics Visualizer
-  # Pre-configured with Prometheus datasource and dashboard
-  # -----------------------------------------------------------
   grafana:
     image: grafana/grafana:latest
     container_name: clinic-grafana

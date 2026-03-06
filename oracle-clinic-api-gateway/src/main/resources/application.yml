@@ -7,13 +7,10 @@ spring:
 
   cloud:
     gateway:
-      # Automatically create routes from Eureka-registered services
       discovery:
         locator:
           enabled: true
           lower-case-service-id: true
-
-      # Explicit routes for each microservice
       routes:
         - id: appointment-service
           uri: lb://oracle-appointment-service
@@ -43,9 +40,6 @@ eureka:
   instance:
     prefer-ip-address: true
 
-# -------------------------------------------------------
-# Actuator + Prometheus Monitoring
-# -------------------------------------------------------
 management:
   endpoints:
     web:

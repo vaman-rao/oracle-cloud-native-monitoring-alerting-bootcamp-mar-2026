@@ -18,7 +18,6 @@ public class Patient {
 	@Column(name = "patient_id")
 	private Long patientId;
 
-	// Many patients can share an insurance package
 	@ManyToOne
 	@JoinColumn(name = "insurance_id", nullable = true)
 	private Insurance insurance;
