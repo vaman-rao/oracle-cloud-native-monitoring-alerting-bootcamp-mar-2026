@@ -1,0 +1,88 @@
+# =============================================================
+# Prometheus Configuration
+# Scrapes /actuator/prometheus from all 5 clinic microservices
+# =============================================================
+
+global:
+  scrape_interval: 15s          # How often to scrape targets
+  evaluation_interval: 15s      # How often to evaluate rules
+  scrape_timeout: 10s
+
+# Alertmanager config (optional - add when you set up alerts)
+# alerting:
+#   alertmanagers:
+#     - static_configs:
+#         - targets: ['alertmanager:9093']
+
+# Rule files for alerting (optional)
+# rule_files:
+#   - "alert_rules.yml"
+
+scrape_configs:
+
+  # ----------------------------------------------------------
+  # Prometheus itself
+  # ----------------------------------------------------------
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # ----------------------------------------------------------
+  # Eureka Discovery Server
+  # ----------------------------------------------------------
+  - job_name: 'oracle-clinic-eureka-server'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['eureka-server:8761']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'eureka-server'
+
+  # ----------------------------------------------------------
+  # API Gateway
+  # ----------------------------------------------------------
+  - job_name: 'oracle-clinic-api-gateway'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['api-gateway:9001']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'api-gateway'
+
+  # ----------------------------------------------------------
+  # Appointment Service
+  # ----------------------------------------------------------
+  - job_name: 'oracle-appointment-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['appointment-service:9002']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'appointment-service'
+
+  # ----------------------------------------------------------
+  # Doctor Service
+  # ----------------------------------------------------------
+  - job_name: 'oracle-doctor-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['doctor-service:9003']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'doctor-service'
+
+  # ----------------------------------------------------------
+  # Patient Service
+  # ----------------------------------------------------------
+  - job_name: 'oracle-patient-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['patient-service:9004']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'patient-service'
